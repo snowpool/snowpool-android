@@ -1,10 +1,37 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
-	<head>
-		<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width" />
-		<title>Training App</title>
-	</head>
-	<body>
-    <h1>Test Application</h1>
-	</body>
+<head>
+  <title>Snowpool</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="./assets/css/jquery.mobile-1.0.1.min.css" />
+  <script src="./assets/js/jquery-1.6.4.min.js"></script>
+  <script src="./assets/js/jquery.mobile-1.0.1.min.js"></script>
+</head>
+<body> 
+  <div data-role="page"> 
+    <div data-role="header">
+      <a href="/" class="ui-btn-left" data-icon="home" rel="external">Home</a>
+      <h1>Snowpool (beta)</h1>
+    </div>
+       
+    <div data-role="content">
+      <ul data-role="listview">
+        <li data-role="list-divider">Choose your country</li>
+        <li><a href="/countries/canada" rel="external">Canada</a></li>
+        <li><a href="/countries/united-states" rel="external">United States</a></li>
+        <li><a href="/countries/australia" rel="external">Australia</a></li>
+        <li><a href="/countries/new-zealand" rel="external">New Zealand</a></li>
+      </ul>
+    </div>
+    <div data-role="footer">
+      <a href="/pools/new" class="ui-btn-right" rel="external">Add Carpool</a>
+      <a href="/about" class="ui-btn-left">About</a>
+
+      <a href="/countries?full_site=1" class="ui-btn-left" rel="external">View full site</a>
+    </div>
+  </div>
+</body>
 </html>
+
+
+

@@ -4,14 +4,13 @@ $(document).ready(function(){
       return;
     }
     $.each(data, function(i,item){
-      $('<li><a class="country_click" href="'+item.country.cached_slug+'">'+item.country.name+'</li>').appendTo("#country_list");
+      $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
     });
     $("#country_list").listview('refresh');
   });
   $("a.country_click").live('click',function(){
-    $.mobile.changePage( $("#country_pool_list"), { transition: "slideup"},false );
     $("#append-pools").empty();
-    $.getJSON("http://api.lvh.me:3000/countries/"+$(this).attr('href')+".js?callback=?", function(data) {
+    $.getJSON("http://api.lvh.me:3000/countries/"+$(this).attr('id')+".js?callback=?", function(data) {
       if(data.length == 0){
         $('<li data-role="list-divider">No current carpools</li>').appendTo("#append-pools");
         $("#append-pools").listview('refresh');

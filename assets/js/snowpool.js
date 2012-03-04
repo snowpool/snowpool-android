@@ -23,10 +23,27 @@ $(document).ready(function(){
           initDate = item.start;
           $('<li data-role="list-divider">Leaving: '+initDate+'</li>').appendTo("#append-pools");
         } 
-        $('<li><a href="'+item.url+'">'+item.title+'</li>').appendTo("#append-pools");
+        $('<li><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
       });
       $("#append-pools").listview('refresh');
       return false;
+    });
+  });
+  $("a.pool_link").live('click',function(e){
+    $("#pool_details").empty();
+      $.getJSON("http://api.lvh.me:3000/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
+        $("#pool_details").append("<h2>Carpool to "+data.field+"</h2>");
+        $("#pool_details").append("<strong>Date Leaving</strong><br/>"+data.start+"<br/>");
+        $("#pool_details").append("<strong>Date Returning</strong><br/>"+data.endDisp+"<br/>");
+        $("#pool_details").append("<strong>Name</strong><br/>"+data.name+"<br/>");
+        if (data.telephone != ""){
+          $("#pool_details").append("<strong>Telephone</strong><br/>"+data.telephone+"<br/>");
+        }
+        if (data.message != ""){
+          $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
+        }
+
+
     });
   });
 });

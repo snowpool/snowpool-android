@@ -1,7 +1,17 @@
+
+$(document).bind("mobileinit", function()
+{
+    if (navigator.userAgent.indexOf("Android") != -1)
+    {
+        $.mobile.defaultPageTransition = 'none';
+        $.mobile.defaultDialogTransition = 'none';
+    }
+});
+
 $(document).ready(function(){
   if (window.localStorage.getItem("chosenCountry")){
     //then move straight to that country's show
-    $.mobile.changePage("#country_pool_list","slide");
+    $.mobile.changePage("#country_pool_list","fade");
     empty_and_refresh_carpools();
   }
   $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {

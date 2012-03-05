@@ -1,8 +1,9 @@
 $(document).bind("mobileinit", function(){
   $.mobile.defaultPageTransition = 'none';
   $.mobile.defaultDialogTransition = 'none';
-  $("#pool_refresh").live('click',function(){
+  $(".refresh_button").live('click',function(){
     empty_and_refresh_carpools();
+    return false;
   });
   $("a.pool_link").live('click',function(e){
     $("#pool_details").empty();

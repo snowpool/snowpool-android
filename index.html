@@ -59,6 +59,7 @@
   <!-- pools page -->
   <div data-role="page" id="country_pool_list"> 
     <div data-role="header">
+      <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
       <h1>Snowpool (beta)</h1>
     </div>
     <div data-role="content">
@@ -66,7 +67,7 @@
       </ul>
     </div>
     <div data-role="footer">
-      <input type="button" id="pool_refresh" value="Refresh" data-icon="refresh" />
+      <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
     </div>
     <script>
       $( '#country_pool_list' ).live( 'pageshow',function(event){

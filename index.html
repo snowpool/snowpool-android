@@ -23,6 +23,24 @@
     <div data-role="footer">
       <a href="#about" class="ui-btn-left">About</a>
     </div>
+      <script>
+        $( '#home' ).live( 'pageshow',function(event){
+          if (window.localStorage.getItem("chosenCountry")){
+            //then move straight to that country's show
+            $.mobile.changePage("#country_pool_list");
+          }else{
+            $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
+              if(data.length == 0){
+                return;
+              }
+              $.each(data, function(i,item){
+                $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
+              });
+              $("#country_list").listview('refresh');
+            });
+          }
+        });
+    </script>
   </div> <!--end of main page -->
 
   <!-- about page -->
@@ -51,6 +69,11 @@
     <div data-role="footer">
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
     </div>
+<script>
+  $( '#country_pool_list' ).live( 'pageshow',function(event){
+    empty_and_refresh_carpools();
+  });
+</script>
   </div> <!--end of main page -->
   <div data-role="page" id="pool_view"> 
     <div data-role="header">

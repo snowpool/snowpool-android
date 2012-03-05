@@ -30,20 +30,18 @@ $(document).ready(function(){
   
   if (window.localStorage.getItem("chosenCountry")){
     //then move straight to that country's show
-    $.mobile.changePage("#country_pool_list","fade");
-    empty_and_refresh_carpools();
-  }
-  
-  
-  $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
-    if(data.length == 0){
-      return;
-    }
-    $.each(data, function(i,item){
-      $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
+    $.mobile.changePage("#country_pool_list");
+  }else{
+    $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
+      if(data.length == 0){
+        return;
+      }
+      $.each(data, function(i,item){
+        $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
+      });
+      $("#country_list").listview('refresh');
     });
-    $("#country_list").listview('refresh');
-  });
+  }
 });
 
 function empty_and_refresh_carpools(){

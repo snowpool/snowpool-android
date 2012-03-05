@@ -1,6 +1,9 @@
 $(document).bind("mobileinit", function(){
   $.mobile.defaultPageTransition = 'none';
   $.mobile.defaultDialogTransition = 'none';
+  $("#pool_refresh").live('click',function(){
+    empty_and_refresh_carpools();
+  });
   $("a.pool_link").live('click',function(e){
     $("#pool_details").empty();
     $.getJSON("http://api.snowpool.org/pools/"+$(this).data('identity')+".js?callback=?", function(data) {

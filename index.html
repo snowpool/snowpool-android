@@ -59,7 +59,6 @@
   <!-- pools page -->
   <div data-role="page" id="country_pool_list"> 
     <div data-role="header">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
       <h1>Snowpool (beta)</h1>
     </div>
     <div data-role="content">
@@ -67,13 +66,13 @@
       </ul>
     </div>
     <div data-role="footer">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
+      <input type="button" id="pool_refresh" value="Refresh" data-icon="refresh" />
     </div>
-<script>
-  $( '#country_pool_list' ).live( 'pageshow',function(event){
-    empty_and_refresh_carpools();
-  });
-</script>
+    <script>
+      $( '#country_pool_list' ).live( 'pageshow',function(event){
+        empty_and_refresh_carpools();
+      });
+    </script>
   </div> <!--end of main page -->
   <div data-role="page" id="pool_view"> 
     <div data-role="header">

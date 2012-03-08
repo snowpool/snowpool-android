@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
-	id		= "com.snowpool.org"
-	version 	= "1.0.2">
+	id		= "com.snowpool.mobileapp"
+	version 	= "1.0.3">
 
 	<name>Snowpool</name>
 
@@ -23,10 +23,7 @@
 	</gap:platforms>
 
 	<icon src="icon.png" gap:role="default" />
-
-	<feature name="http://api.phonegap.com/1.0/geolocation"/>
-	<feature name="http://api.phonegap.com/1.0/network"/>
-
+  <preference name="permissions" value="none"/>
 	<!-- sample preference specification -->
 	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
 </widget>

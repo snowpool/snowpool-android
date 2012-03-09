@@ -5,9 +5,24 @@ $(document).bind("mobileinit", function(){
     empty_and_refresh_carpools();
     return false;
   });
+
   $("#sign_in_button").live('click',function(){
     alert("sign in button clickarood");
-  //<form accept-charset="UTF-8" action="http://api.lvh.me:3000/tokens.json" method="post">
+    $.ajax({
+      type: "POST",
+      url: 'http://api.lvh.me:3000/tokens.json',
+      data: {
+       "email" : $("#sign_in_email").val(),
+       "password" : $("#sign_in_password").val()
+      }, 
+      success: function(data) {
+        window.localStorage.setItem("token" ,data.token);
+      },
+      error: function(data){
+        alert($.parseJSON(data.responseText).message);
+      },
+      dataType: "json"
+    });
   });
   $("a.pool_link").live('click',function(e){
     $("#pool_details").empty();
@@ -51,3 +66,5 @@ function empty_and_refresh_carpools(){
     return false;
   });
  }
+  
+

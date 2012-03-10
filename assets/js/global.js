@@ -15,21 +15,21 @@ $(document).bind("mobileinit", function(){
        "message" : $("#pool_message").val()
       }, 
       success: function(data) {
-        $("#country_pool_list").append('<div class="notice" data-role="flash">message has been sent</div>');
+        alert("Email has been sent");
         $.mobile.changePage("#country_pool_list");
       },
       error: function(data){
         if ($.parseJSON(data.responseText).message == 'Invalid token.'){
           window.localStorage.setItem("valid_login" ,"false");
-          $("#sign_in").append('<div class="notice" data-role="flash">Your login has expired, please login again.</div>');
+          alert("Your login has expired, please login again.");
           $(".login_button").show();
           $(".add_carpool_button").hide();
           $.mobile.changePage("#sign_in");
         }else if ($.parseJSON(data.responseText).message == 'Cannot send email to yourself!'){
-          $(".pool_flash").empty().append('<font color="red">Cannot send email to yourself</font>');
+          alert("Cannot send an email to yourself!");
         }
         else{
-          $(".pool_flash").empty().append('<font color="red">Cannot send an empty message</font>');
+          alert("Cannot send an empty email!");
         }
       },
       dataType: "json"
@@ -48,6 +48,8 @@ $(document).bind("mobileinit", function(){
         $(".add_carpool_button").show();
         alert("You are logged in");
         window.localStorage.setItem("token" ,data.token);
+        window.localStorage.setItem("telephone" ,data.telephone);
+        window.localStorage.setItem("city" ,data.city);
         window.localStorage.setItem("valid_login" ,"true");
         $.mobile.changePage("#country_pool_list");
       },
@@ -77,7 +79,7 @@ $(document).bind("mobileinit", function(){
         $("#pool_details").append("<input type=\"hidden\" id=\"pool_id\" value=\""+data.id+"\"></textarea>");
         $("#pool_details").append('<button type="submit" data-theme="a" id="send_message_button">Send Message</button>');
       }else{
-        $("#pool_details").append("<h4>If you sign in, then you can send the user a message.</h4>");
+        $("#pool_details").append("<h4>If you <a href=\"#sign_in\">sign in</a>, then you can send the user a message.</h4>");
       }
       $("#pool_details").trigger('create');
     });
@@ -134,6 +136,12 @@ function empty_and_refresh_carpools(){
   }
   function users_token(){
     return window.localStorage.getItem("token");
+  }
+  function users_telephone(){
+    return window.localStorage.getItem("telephone");
+  }
+  function users_city(){
+    return window.localStorage.getItem("city");
   }
   function users_fields(){
     if ( window.localStorage.getItem("has_country_fields") == "true" ){

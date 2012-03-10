@@ -8,7 +8,6 @@
   <script src="./assets/js/jquery-1.6.4.min.js"></script>
   <script src="./assets/js/global.js"></script>
   <script src="./assets/js/jquery.mobile-1.0.1.min.js"></script>
-  <script src="./assets/js/flashmessage.js"></script>
 </head>
 <body> 
   <div id="home" data-role="page"> 
@@ -202,9 +201,12 @@
           var option = new Option(to_add,to_add );
           $("#carpool_date_returning")[0].add(option,null);
         }
+        $("#carpool_telephone").val(users_telephone());
+        $("#carpool_leaving_from").val(users_city());
 
         $("#carpool_details").trigger('create');
       });
+      
   </script>
 </div> <!--end of main page -->
 

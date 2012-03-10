@@ -9,7 +9,7 @@ $(document).bind("mobileinit", function(){
   $("#send_message_button").live('click',function(){
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/pools/'+$("#pool_id").val()+'/sendmessage.js',
+      url: 'http://api.snowpool.org/pools/'+$("#pool_id").val()+'/sendmessage.js',
       data: {
        "token" : users_token(),
        "message" : $("#pool_message").val()
@@ -37,7 +37,7 @@ $(document).bind("mobileinit", function(){
   $("#sign_in_button").live('click',function(){
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/tokens.js',
+      url: 'http://api.snowpool.org/tokens.js',
       data: {
        "email" : $("#sign_in_email").val(),
        "password" : $("#sign_in_password").val()
@@ -57,7 +57,7 @@ $(document).bind("mobileinit", function(){
   });
   $("a.pool_link").live('click',function(e){
     $("#pool_details").empty();
-    $.getJSON("http://api.lvh.me:3000/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
+    $.getJSON("http://api.snowpool.org/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
       $("#pool_details").append("<h2>Carpool to "+data.field+"</h2>");
       $("#pool_details").append("<strong>Date Leaving</strong><br/>"+data.start+"<br/>");
       $("#pool_details").append("<strong>Date Returning</strong><br/>"+data.endDisp+"<br/>");
@@ -85,7 +85,7 @@ $(document).bind("mobileinit", function(){
 
 function empty_and_refresh_carpools(){
   $("#append-pools").empty();
-  $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
+  $.getJSON("http://api.snowpool.org/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
     if(data.length == 0){
       $('<li data-role="list-divider">No current carpools</li>').appendTo("#append-pools");
       $("#append-pools").listview('refresh');

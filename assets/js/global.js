@@ -87,7 +87,7 @@ $(document).bind("mobileinit", function(){
     window.localStorage.setItem("chosenCountry" ,$(this).attr('id'));
     //get the fields for this country
     $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+"/fields.js", function(data) {
-      window.localStorage.setItem("country_fields" ,data);
+      window.localStorage.setItem("country_fields" ,JSON.stringify(data));
       window.localStorage.setItem("has_country_fields" ,"true");
     });
   });
@@ -135,3 +135,23 @@ function empty_and_refresh_carpools(){
   function users_token(){
     return window.localStorage.getItem("token");
   }
+  function users_fields(){
+    if ( window.localStorage.getItem("has_country_fields") == "true" ){
+      return JSON.parse(window.localStorage.getItem("country_fields"));
+    }else{
+      return false;
+    }
+  }
+  var m_names = new Array("Jan", "Feb", "Mar", 
+  "Apr", "May", "Jun", "Jul", "Aug", "Sept", 
+  "Oct", "Nov", "Dec");
+
+  function print_date(d){
+    var curr_date = d.getDate();
+    var curr_month = d.getMonth();
+    var curr_year = d.getFullYear();
+    var to_return = curr_date + "-" + m_names[curr_month] + "-" + curr_year;
+    return to_return;
+  }
+
+

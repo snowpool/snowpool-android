@@ -131,57 +131,45 @@
      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
   </div>
   <div data-role="content">
-      <fieldset>
-        <legend>Booking Details</legend>
-        <div>
-        <div data-role="fieldcontain">
-          <label for="select-choice-1" class="select">Choose Field:</label>
-          <%= f.collection_select :field_id, @fields, :id,:name%>
-        </div>
+    <div id="carpool_details">
+      <select id="carpool_field"></select>  
+      <select id="carpool_date_leaving"></select>  
+      <select id="carpool_date_returning"></select>  
+    </div><!-- end of carpool details div -->
 
-          <%= f.label :leaving_date, "Leaving date:" %>
-          <%= f.select :leaving_date, options_for_select((Date.today..Date.today+10.days).map {|date|date.strftime("%d-%b-%Y")})%>
-          <br/>
-        </div>
-        <div>
-          <%= f.label :returning_date, "Returning date:" %>
-          <%= f.select :returning_date, options_for_select((Date.today..Date.today+10.days).map {|date|date.strftime("%d-%b-%Y")})%>
-          <br/>
-        </div>
-        <div>
-          <%= f.label :spaces_free, "Spaces free:" %>
-          <%= f.select :spaces_free, options_for_select((1..10)) %>
-          <br/>
-        </div>
-      </fieldset>
-      <fieldset>
-        <legend>Contact Information</legend>
-        <div>
-          <%= f.label :driven_here_before, "I have driven here before:" %>
-          <%= f.check_box :driven_here_before %>
-          <br/>
-        </div>
-        <div>
-          <%= f.label :leaving_from, "City you are leaving from:" %>
-          <%= f.text_field :leaving_from %>
-          <br/>
-        </div>
-        <div>
-          <%= f.label :telephone, "Telephone:" %>
-          <%= f.text_field :telephone %>
-          <br/>
-        </div>
-        <div>
-          <%= f.label :message, "Message:"%>
-          <%= f.text_area :message, :rows => 5, :cols => 40 %>
-          <br/>
-        </div>
-        <%= f.submit %>
-      </fieldset>
+
   </div>
   <div data-role="footer">
     <a href="#about" class="ui-btn-left">About</a>
   </div>
+    <script>
+      $( '#add_carpool' ).live( 'pageshow',function(event){
+        //input the field selector
+        var fields = users_fields();
+        if (fields){
+          $.each(fields,function(){
+            var option = new Option(this.field.name, this.field.id);
+            $("#carpool_field")[0].add(option,null);
+          });
+        }else{
+          alert("BAD");
+        }
+
+        //setup the leaving date selects
+        var d = new Date();
+        d.setDate(d.getDate()-1);
+        for (var i=0;i<10;i++){
+          d.setDate(d.getDate()+1);
+          var to_add = print_date(d);
+          var option = new Option(to_add,to_add );
+          $("#carpool_date_leaving")[0].add(option,null);
+          var option = new Option(to_add,to_add );
+          $("#carpool_date_returning")[0].add(option,null);
+        }
+
+        $("#carpool_details").trigger('create');
+      });
+  </script>
 </div> <!--end of main page -->
 
 

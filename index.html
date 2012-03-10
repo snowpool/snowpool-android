@@ -63,6 +63,7 @@
       <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
       <h1>Snowpool (beta)</h1>
       <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
+      <a href="#add_carpool" class="add_carpool_button ui-btn-right">Add Carpool</a>
     </div>
     <div data-role="content">
       <ul id="append-pools" data-role="listview">
@@ -119,11 +120,70 @@
       </div>  
     </div>
     <button type="submit" data-theme="a" id="sign_in_button">Sign in</button>
-  </form>
   <div data-role="footer">
     <a href="#about" class="ui-btn-left">About</a>
   </div>
 </div> <!--end of main page -->
+
+<div id="add_carpool" data-role="page"> 
+  <div data-role="header">
+    <h1>Snowpool (beta)</h1>
+     <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
+  </div>
+  <div data-role="content">
+      <fieldset>
+        <legend>Booking Details</legend>
+        <div>
+        <div data-role="fieldcontain">
+          <label for="select-choice-1" class="select">Choose Field:</label>
+          <%= f.collection_select :field_id, @fields, :id,:name%>
+        </div>
+
+          <%= f.label :leaving_date, "Leaving date:" %>
+          <%= f.select :leaving_date, options_for_select((Date.today..Date.today+10.days).map {|date|date.strftime("%d-%b-%Y")})%>
+          <br/>
+        </div>
+        <div>
+          <%= f.label :returning_date, "Returning date:" %>
+          <%= f.select :returning_date, options_for_select((Date.today..Date.today+10.days).map {|date|date.strftime("%d-%b-%Y")})%>
+          <br/>
+        </div>
+        <div>
+          <%= f.label :spaces_free, "Spaces free:" %>
+          <%= f.select :spaces_free, options_for_select((1..10)) %>
+          <br/>
+        </div>
+      </fieldset>
+      <fieldset>
+        <legend>Contact Information</legend>
+        <div>
+          <%= f.label :driven_here_before, "I have driven here before:" %>
+          <%= f.check_box :driven_here_before %>
+          <br/>
+        </div>
+        <div>
+          <%= f.label :leaving_from, "City you are leaving from:" %>
+          <%= f.text_field :leaving_from %>
+          <br/>
+        </div>
+        <div>
+          <%= f.label :telephone, "Telephone:" %>
+          <%= f.text_field :telephone %>
+          <br/>
+        </div>
+        <div>
+          <%= f.label :message, "Message:"%>
+          <%= f.text_area :message, :rows => 5, :cols => 40 %>
+          <br/>
+        </div>
+        <%= f.submit %>
+      </fieldset>
+  </div>
+  <div data-role="footer">
+    <a href="#about" class="ui-btn-left">About</a>
+  </div>
+</div> <!--end of main page -->
+
 
 </body>
 </html>

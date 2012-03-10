@@ -23,6 +23,7 @@ $(document).bind("mobileinit", function(){
           window.localStorage.setItem("valid_login" ,"false");
           $("#sign_in").append('<div class="notice" data-role="flash">Your login has expired, please login again.</div>');
           $(".login_button").show();
+          $(".add_carpool_button").hide();
           $.mobile.changePage("#sign_in");
         }else if ($.parseJSON(data.responseText).message == 'Cannot send email to yourself!'){
           $(".pool_flash").empty().append('<font color="red">Cannot send email to yourself</font>');
@@ -44,6 +45,7 @@ $(document).bind("mobileinit", function(){
       }, 
       success: function(data) {
         $(".login_button").hide();
+        $(".add_carpool_button").show();
         alert("You are logged in");
         window.localStorage.setItem("token" ,data.token);
         window.localStorage.setItem("valid_login" ,"true");
@@ -83,6 +85,11 @@ $(document).bind("mobileinit", function(){
 
   $("a.country_click").live('click',function(){
     window.localStorage.setItem("chosenCountry" ,$(this).attr('id'));
+    //get the fields for this country
+    $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+"/fields.js", function(data) {
+      window.localStorage.setItem("country_fields" ,data);
+      window.localStorage.setItem("has_country_fields" ,"true");
+    });
   });
 });
 
@@ -112,6 +119,8 @@ function empty_and_refresh_carpools(){
  function setup(){
   if (user_is_valid()){
     $(".login_button").hide();
+  }else{
+    $(".add_carpool_button").hide();
   }
  }
 

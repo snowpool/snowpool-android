@@ -29,7 +29,7 @@
             //then move straight to that country's show
             $.mobile.changePage("#country_pool_list");
           }else{
-            $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
+            $.getJSON("http://api.lvh.me:3000/countries.js?callback=?", function(data) {
               if(data.length == 0){
                 return;
               }
@@ -70,6 +70,7 @@
     </div>
     <div data-role="footer">
       <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
+      <a href="#about" class="ui-btn-right">About</a>
     </div>
     <script>
       $( '#country_pool_list' ).live( 'pageshow',function(event){
@@ -81,6 +82,7 @@
     <div data-role="header">
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
       <h1>Snowpool (beta)</h1>
+      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
     </div>
     <div data-role="content">
       <div class="pool_flash"></div>
@@ -104,15 +106,16 @@
      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
   </div>
     <div data-role="content">
+      <h5>You must create your account at www.snowpool.org before you can login with the mobile application</h5> 
       <div data-role="fieldcontain">
           <label for="email">Email Address:</label>
-          <input type="text" name="email" id="sign_in_email" value=""  />
+          <input type="email" name="email" id="sign_in_email" value=""  />
       </div>  
     </div>
     <div data-role="content">
       <div data-role="fieldcontain">
           <label for="password">Password:</label>
-          <input type="text" name="password" id="sign_in_password" value=""  />
+          <input type="password" name="password" id="sign_in_password" value=""  />
       </div>  
     </div>
     <button type="submit" data-theme="a" id="sign_in_button">Sign in</button>

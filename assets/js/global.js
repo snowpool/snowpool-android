@@ -1,11 +1,11 @@
 $(document).bind("mobileinit", function(){
   $.mobile.defaultPageTransition = 'none';
   $.mobile.defaultDialogTransition = 'none';
+  
   $(".refresh_button").live('click',function(){
     empty_and_refresh_carpools();
     return false;
   });
-
   $("#sign_in_button").live('click',function(){
     alert("sign in button clickarood");
     $.ajax({
@@ -16,9 +16,13 @@ $(document).bind("mobileinit", function(){
        "password" : $("#sign_in_password").val()
       }, 
       success: function(data) {
+        $(".login_button").hide();
         window.localStorage.setItem("token" ,data.token);
+        window.localStorage.setItem("valid_login" ,"true");
+        $.mobile.changePage("#country_pool_list");
       },
       error: function(data){
+        window.localStorage.setItem("valid_login" ,"false");
         alert($.parseJSON(data.responseText).message);
       },
       dataType: "json"
@@ -66,5 +70,18 @@ function empty_and_refresh_carpools(){
     return false;
   });
  }
-  
 
+ //setup all the local variables etc
+ function setup(){
+  console.log("setup");
+  console.log(window.localStorage.getItem("valid_login"));
+  if (window.localStorage.getItem("valid_login") == "true"){
+    console.log("hiding");
+    $(".login_button").hide();
+  }
+ }
+
+ /* trigger the setup once the page has been loaded for the first time - only gets triggered once */
+ $(document).ready(function(){
+  setup();
+ });

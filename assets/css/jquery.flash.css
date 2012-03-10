@@ -1,0 +1,4 @@
+.ui-flash { position: absolute; opacity: .85; z-index: 10; top: 75px; left: 50%; width: 200px; margin-left: -130px; padding: 20px 30px; }
+.ui-flash.error { background:#FBE3E4;color:#8a1f11;border-color:#FBC2C4;}
+.ui-flash.notice { background:#FFF6BF;color:#514721;border-color:#FFD324;}
+.ui-flash.success { background:#E6EFC2;color:#264409;border-color:#C6D880;}

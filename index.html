@@ -4,9 +4,11 @@
   <title>Snowpool</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="./assets/css/jquery.mobile-1.0.1.min.css" />
+  <link rel="stylesheet" href="./assets/css/jquery.flash.css" />
   <script src="./assets/js/jquery-1.6.4.min.js"></script>
   <script src="./assets/js/global.js"></script>
   <script src="./assets/js/jquery.mobile-1.0.1.min.js"></script>
+  <script src="./assets/js/flashmessage.js"></script>
 </head>
 <body> 
   <div id="home" data-role="page"> 
@@ -81,12 +83,18 @@
       <h1>Snowpool (beta)</h1>
     </div>
     <div data-role="content">
+      <div class="pool_flash"></div>
       <div id="pool_details">
       </div>
     </div>
     <div data-role="footer">
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
     </div>
+    <script>
+      $( '#pool_view' ).live( 'pageshow',function(event){
+        $(".pool_flash").empty();
+      });
+  </script>
   </div> <!--end of main page -->
 
 
@@ -112,10 +120,6 @@
   <div data-role="footer">
     <a href="#about" class="ui-btn-left">About</a>
   </div>
-    <script>
-      $( '#sign_in' ).live( 'pageshow',function(event){
-      });
-  </script>
 </div> <!--end of main page -->
 
 </body>

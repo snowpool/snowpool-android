@@ -6,11 +6,38 @@ $(document).bind("mobileinit", function(){
     empty_and_refresh_carpools();
     return false;
   });
-  $("#sign_in_button").live('click',function(){
-    alert("sign in button clickarood");
+  $("#send_message_button").live('click',function(){
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/tokens.json',
+      url: 'http://api.lvh.me:3000/pools/'+$("#pool_id").val()+'/sendmessage.js',
+      data: {
+       "token" : users_token(),
+       "message" : $("#pool_message").val()
+      }, 
+      success: function(data) {
+        $("#country_pool_list").append('<div class="notice" data-role="flash">message has been sent</div>');
+        $.mobile.changePage("#country_pool_list");
+      },
+      error: function(data){
+        if ($.parseJSON(data.responseText).message == 'Invalid token.'){
+          window.localStorage.setItem("valid_login" ,"false");
+          $("#sign_in").append('<div class="notice" data-role="flash">Your login has expired, please login again.</div>');
+          $(".login_button").show();
+          $.mobile.changePage("#sign_in");
+        }else if ($.parseJSON(data.responseText).message == 'Cannot send email to yourself!'){
+          $(".pool_flash").empty().append('<font color="red">Cannot send email to yourself</font>');
+        }
+        else{
+          $(".pool_flash").empty().append('<font color="red">Cannot send an empty message</font>');
+        }
+      },
+      dataType: "json"
+    });
+  });
+  $("#sign_in_button").live('click',function(){
+    $.ajax({
+      type: "POST",
+      url: 'http://api.lvh.me:3000/tokens.js',
       data: {
        "email" : $("#sign_in_email").val(),
        "password" : $("#sign_in_password").val()
@@ -43,7 +70,7 @@ $(document).bind("mobileinit", function(){
       }
       if (user_is_valid()){
         $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");
-        $("#pool_details").append("<textarea name=\"messageText\" id=\"send_message\"></textarea>");
+        $("#pool_details").append("<textarea name=\"messageText\" id=\"pool_message\"></textarea>");
         $("#pool_details").append("<input type=\"hidden\" id=\"pool_id\" value=\""+data.id+"\"></textarea>");
         $("#pool_details").append('<button type="submit" data-theme="a" id="send_message_button">Send Message</button>');
         $("#pool_details").trigger('create');
@@ -92,4 +119,7 @@ function empty_and_refresh_carpools(){
 
   function user_is_valid(){
     return window.localStorage.getItem("valid_login") == "true";
+  }
+  function users_token(){
+    return window.localStorage.getItem("token");
   }

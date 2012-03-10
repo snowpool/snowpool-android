@@ -41,6 +41,13 @@ $(document).bind("mobileinit", function(){
       if (data.message != ""){
         $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
       }
+      if (user_is_valid()){
+        $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");
+        $("#pool_details").append("<textarea name=\"messageText\" id=\"send_message\"></textarea>");
+        $("#pool_details").append("<input type=\"hidden\" id=\"pool_id\" value=\""+data.id+"\"></textarea>");
+        $("#pool_details").append('<button type="submit" data-theme="a" id="send_message_button">Send Message</button>');
+        $("#pool_details").trigger('create');
+      }
     });
   });
 
@@ -73,10 +80,7 @@ function empty_and_refresh_carpools(){
 
  //setup all the local variables etc
  function setup(){
-  console.log("setup");
-  console.log(window.localStorage.getItem("valid_login"));
-  if (window.localStorage.getItem("valid_login") == "true"){
-    console.log("hiding");
+  if (user_is_valid()){
     $(".login_button").hide();
   }
  }
@@ -85,3 +89,7 @@ function empty_and_refresh_carpools(){
  $(document).ready(function(){
   setup();
  });
+
+  function user_is_valid(){
+    return window.localStorage.getItem("valid_login") == "true";
+  }

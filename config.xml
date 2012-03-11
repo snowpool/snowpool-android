@@ -2,7 +2,7 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		= "com.snowpool.mobileapp"
-	version 	= "1.0.5">
+	version 	= "1.0.6">
 
 	<name>Snowpool</name>
 
@@ -21,7 +21,8 @@
 		<gap:platform name="symbian.wrt" />
 		<gap:platform name="blackberry" project="widgets"/>
 	</gap:platforms>
-
+  
+  <gap:splash src="splash.png" />
 	<icon src="icon.png" gap:role="default" />
   <preference name="permissions" value="none"/>
 	<!-- sample preference specification -->

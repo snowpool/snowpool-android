@@ -39,6 +39,8 @@ $(document).bind("mobileinit", function(){
     });
   });
   $("#submit_carpool_button").live('click',function(){
+    window.localStorage.setItem("city" ,$("#carpool_leaving_from").val());
+    window.localStorage.setItem("telephone" ,$("#carpool_telephone").val());
     $.ajax({
       type: "POST",
       url: 'http://api.lvh.me:3000/pools.js',
@@ -197,9 +199,9 @@ function empty_and_refresh_carpools(){
     window.localStorage.removeItem("chosenCountry");
     window.localStorage.removeItem("country_fields");
   }
-  var m_names = new Array("Jan", "Feb", "Mar", 
-  "Apr", "May", "Jun", "Jul", "Aug", "Sept", 
-  "Oct", "Nov", "Dec");
+  var m_names = new Array("January", "February", "March",
+  "April", "May", "June", "July", "August", "September",
+  "October", "November", "December");
 
   function print_date(d){
     var curr_date = d.getDate();

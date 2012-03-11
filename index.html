@@ -1,260 +1,40 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Snowpool</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="./assets/css/jquery.mobile-1.0.1.min.css" />
-  <link rel="stylesheet" href="./assets/css/jquery.flash.css" />
-  <script src="./assets/js/jquery-1.6.4.min.js"></script>
-  <script src="./assets/js/global.js"></script>
-  <script src="./assets/js/jquery.mobile-1.0.1.min.js"></script>
-</head>
-<body> 
-  <div id="home" data-role="page"> 
-    <div data-role="header">
-      <h1>Snowpool (beta)</h1>
-    </div>
-       
-    <div data-role="content">
-      <ul id="country_list" data-role="listview">
-      </ul>
-    </div>
-    <div data-role="footer">
-    </div>
-      <script>
-        $( '#home' ).live( 'pageshow',function(event){
-          if (window.localStorage.getItem("chosenCountry")){
-            //then move straight to that country's show
-            $.mobile.changePage("#country_pool_list");
-          }else{
-            $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
-              if(data.length == 0){
-                return;
-              }
-              $("#country_list").empty();
-              $('<li data-role="list-divider">Choose your country</li>').appendTo("#country_list");
-              $.each(data, function(i,item){
-                $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
-              });
-              $("#country_list").listview('refresh');
-            });
-          }
-        });
+  <head>
+    <title>navigator.network.connection.type Example</title>
+
+    <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+    // Wait for PhoneGap to load
+    // 
+    document.addEventListener("deviceready", onDeviceReady, false);
+
+    // PhoneGap is loaded and it is now safe to make calls PhoneGap methods
+    //
+    function onDeviceReady() {
+        checkConnection();
+    }
+
+    function checkConnection() {
+        var networkState = navigator.network.connection.type;
+
+        var states = {};
+        states[Connection.UNKNOWN]  = 'Unknown connection';
+        states[Connection.ETHERNET] = 'Ethernet connection';
+        states[Connection.WIFI]     = 'WiFi connection';
+        states[Connection.CELL_2G]  = 'Cell 2G connection';
+        states[Connection.CELL_3G]  = 'Cell 3G connection';
+        states[Connection.CELL_4G]  = 'Cell 4G connection';
+        states[Connection.NONE]     = 'No network connection';
+
+        alert('Connection type: ' + states[networkState]);
+    }
+
     </script>
-  </div> <!--end of main page -->
-
-  <!-- about page -->
-  <div data-role="page" id="about"> 
-    <div data-role="header">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-      <h1>Snowpool (beta)</h1>
-      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
-    </div>
-    <div data-role="content">
-      <p>This is the beta version of the Snowpool Mobile App.  Please <a href="mailto:info@snowpool.org">Email us</a> if you have any comments or suggestions.</p>
-    </div>
-    <div data-role="footer">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-    </div>
-  </div> <!--end of main page -->
-  
-  
-  <!-- settings page -->
-  <div data-role="page" id="settings"> 
-    <div data-role="header">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-      <h1>Snowpool (beta)</h1>
-      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
-      <a href="#add_carpool" class="add_carpool_button ui-btn-right">Add Carpool</a>
-    </div>
-    <div data-role="content">
-      <div id="settings_details">
-      </div>
-      <br/>
-      <a href="#home" rel="external" class="change_country_button" class="ui-btn-left">Change Country</a>
-    </div>
-    <div data-role="footer">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-    </div>
-    <script>
-      $( '#settings' ).live( 'pageshow',function(event){
-        //get the latest settings
-        $("#settings_details").empty().append("<strong>Country:</strong>"+users_country() + "<br/>");
-        $("#settings_details").trigger('create');
-      });
-    </script>
-  </div> <!--end of settings page -->
-  
-  <!-- pools page -->
-  <div data-role="page" id="country_pool_list"> 
-    <div data-role="header">
-      <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
-      <h1>Snowpool (beta)</h1>
-      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
-      <a href="#add_carpool" class="add_carpool_button ui-btn-right">Add Carpool</a>
-    </div>
-    <div data-role="content">
-      <ul id="append-pools" data-role="listview">
-      </ul>
-    </div>
-    <div data-role="footer">
-      <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
-      <a href="#about" class="ui-btn-right">About</a>
-      <a href="#settings" class="ui-btn-right" data-icon="settings">Settings</a>
-    </div>
-    <script>
-      $( '#country_pool_list' ).live( 'pageshow',function(event){
-        empty_and_refresh_carpools();
-      });
-    </script>
-  </div> <!--end of main page -->
-  <div data-role="page" id="pool_view"> 
-    <div data-role="header">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-      <h1>Snowpool (beta)</h1>
-      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
-    </div>
-    <div data-role="content">
-      <div class="pool_flash"></div>
-      <div id="pool_details">
-      </div>
-    </div>
-    <div data-role="footer">
-      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-    </div>
-    <script>
-      $( '#pool_view' ).live( 'pageshow',function(event){
-        $(".pool_flash").empty();
-      });
-  </script>
-  </div> <!--end of main page -->
-
-
-<div id="sign_in" data-role="page"> 
-  <div data-role="header">
-    <h1>Snowpool (beta)</h1>
-     <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-  </div>
-    <div data-role="content">
-      <h5>You must create your account at www.snowpool.org before you can login with the mobile application</h5> 
-      <div data-role="fieldcontain">
-          <label for="email">Email Address:</label>
-          <input type="email" name="email" id="sign_in_email" value=""  />
-      </div>  
-    </div>
-    <div data-role="content">
-      <div data-role="fieldcontain">
-          <label for="password">Password:</label>
-          <input type="password" name="password" id="sign_in_password" value=""  />
-      </div>  
-    </div>
-    <button type="submit" data-theme="a" id="sign_in_button">Sign in</button>
-  <div data-role="footer">
-    <a href="#about" class="ui-btn-left">About</a>
-  </div>
-</div> <!--end of main page -->
-
-<div id="add_carpool" data-role="page"> 
-  <div data-role="header">
-    <h1>Snowpool (beta)</h1>
-     <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
-  </div>
-  <div data-role="content">
-    <div id="carpool_details">
-      <div data-role="fieldcontain">
-        <label for="carpool_field">Ski Field:</label>
-        <select id="carpool_field"></select>  
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_date_leaving">Date leaving:</label>
-        <select id="carpool_date_leaving"></select>  
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_date_returning">Date returning:</label>
-        <select id="carpool_date_returning"></select>  
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_spaces">Spaces free:</label>
-        <select id="carpool_spaces">
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-        </select>
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_leaving_from">Leaving from:</label>
-        <input type="text" id="carpool_leaving_from"/>
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_telephone">Telephone:</label>
-        <input type="text" id="carpool_telephone" />
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_driven_before">Driven here before:</label>
-        <input type="checkbox" id="carpool_driven_before" value="1"/>
-      </div>
-      <div data-role="fieldcontain">
-        <label for="carpool_message">Message:</label>
-        <textarea id="carpool_message"></textarea>
-      </div>
-      <button type="submit" data-theme="a" id="submit_carpool_button">Submit Carpool</button>
-    </div><!-- end of carpool details div -->
-
-
-  </div>
-  <div data-role="footer">
-    <a href="#about" class="ui-btn-left">About</a>
-  </div>
-    <script>
-      $( '#add_carpool' ).live( 'pageinit',function(event){
-        //input the field selector
-        var fields = users_fields();
-        var output = [];
-        output.push('<option selected value="">Select Field...</option>');
-        if (fields){
-          $.each(fields,function(){
-            output.push('<option value="'+ this.field.id +'">'+ this.field.name +'</option>');
-          });
-          $('#carpool_field').html(output.join(''));
-          $("#carpool_field").selectmenu('refresh', true);
-        }else{
-          alert("BAD");
-        }
-
-        //setup the leaving date selects
-        var d = new Date();
-        d.setDate(d.getDate()-1);
-        var output = [];
-        $('#mySelect').html(output.join(''));
-
-        for (var i=0;i<10;i++){
-          d.setDate(d.getDate()+1);
-          var to_add = print_date(d);
-          if (i == 1){
-            output.push('<option selected value="'+ to_add +'">'+ to_add +'</option>');
-          }else{
-            output.push('<option value="'+ to_add +'">'+ to_add +'</option>');
-          }
-        }
-        $('#carpool_date_leaving').html(output.join(''));
-        $('#carpool_date_returning').html(output.join(''));
-        $("#carpool_date_leaving").selectmenu('refresh', true);
-        $("#carpool_date_returning").selectmenu('refresh', true);
-        $("#carpool_telephone").val(users_telephone());
-        $("#carpool_leaving_from").val(users_city());
-
-        $("#carpool_details").trigger('create');
-      });
-      $( '#add_carpool' ).live( 'pageshow',function(event){
-      });
-      
-  </script>
-</div> <!--end of main page -->
-
-
-</body>
+  </head>
+  <body>
+    <p>A dialog box will report the network state.</p>
+  </body>
 </html>
-
-
 

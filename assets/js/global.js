@@ -6,6 +6,9 @@ $(document).bind("mobileinit", function(){
     empty_and_refresh_carpools();
     return false;
   });
+  $(".change_country_button").live('click',function(){
+    clear_data();
+  });
   $("#send_message_button").live('click',function(){
     $.ajax({
       type: "POST",
@@ -185,6 +188,14 @@ function empty_and_refresh_carpools(){
     }else{
       return false;
     }
+  }
+  function users_country(){
+    return humanize(window.localStorage.getItem("chosenCountry"));
+  }
+  function clear_data(){
+    window.localStorage.removeItem("has_country_fields");
+    window.localStorage.removeItem("chosenCountry");
+    window.localStorage.removeItem("country_fields");
   }
   var m_names = new Array("Jan", "Feb", "Mar", 
   "Apr", "May", "Jun", "Jul", "Aug", "Sept", 

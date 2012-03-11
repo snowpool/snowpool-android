@@ -17,7 +17,6 @@
        
     <div data-role="content">
       <ul id="country_list" data-role="listview">
-        <li data-role="list-divider">Choose your country</li>
       </ul>
     </div>
     <div data-role="footer">
@@ -32,6 +31,8 @@
               if(data.length == 0){
                 return;
               }
+              $("#country_list").empty();
+              $('<li data-role="list-divider">Choose your country</li>').appendTo("#country_list");
               $.each(data, function(i,item){
                 $('<li><a class="country_click" id="'+item.country.cached_slug+'" href="#country_pool_list">'+item.country.name+'</li>').appendTo("#country_list");
               });
@@ -56,6 +57,34 @@
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
     </div>
   </div> <!--end of main page -->
+  
+  
+  <!-- settings page -->
+  <div data-role="page" id="settings"> 
+    <div data-role="header">
+      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
+      <h1>Snowpool (beta)</h1>
+      <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
+      <a href="#add_carpool" class="add_carpool_button ui-btn-right">Add Carpool</a>
+    </div>
+    <div data-role="content">
+      <div id="settings_details">
+      </div>
+      <br/>
+      <a href="#home" rel="external" class="change_country_button" class="ui-btn-left">Change Country</a>
+    </div>
+    <div data-role="footer">
+      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
+    </div>
+    <script>
+      $( '#settings' ).live( 'pageshow',function(event){
+        //get the latest settings
+        $("#settings_details").empty().append("<strong>Country:</strong>"+users_country() + "<br/>");
+        $("#settings_details").trigger('create');
+      });
+    </script>
+  </div> <!--end of settings page -->
+  
   <!-- pools page -->
   <div data-role="page" id="country_pool_list"> 
     <div data-role="header">
@@ -71,6 +100,7 @@
     <div data-role="footer">
       <a href="#refresh" rel="external" class="refresh_button" class="ui-btn-left" data-icon="refresh">Refresh</a>
       <a href="#about" class="ui-btn-right">About</a>
+      <a href="#settings" class="ui-btn-right" data-icon="settings">Settings</a>
     </div>
     <script>
       $( '#country_pool_list' ).live( 'pageshow',function(event){

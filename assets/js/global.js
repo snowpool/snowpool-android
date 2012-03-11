@@ -35,6 +35,36 @@ $(document).bind("mobileinit", function(){
       dataType: "json"
     });
   });
+  $("#submit_carpool_button").live('click',function(){
+    $.ajax({
+      type: "POST",
+      url: 'http://api.lvh.me:3000/pools.js',
+      data: {
+       "token" : users_token(),
+       "pool[leaving_from]" : $("#carpool_leaving_from").val(),
+       "pool[field_id]" : $("#carpool_field").val(),
+       "pool[leaving_date]" : $("#carpool_date_leaving").val(),
+       "pool[returning_date]" : $("#carpool_date_returning").val(),
+       "pool[spaces_free]" : $("#carpool_spaces").val(),
+       "pool[telephone]" : $("#carpool_telephone").val(),
+       "pool[message]" : $("#carpool_message").val(),
+       "pool[driven_here_before]" : $("#carpool_driven_before").prop("checked")
+      }, 
+      success: function(data) {
+        alert("Carpool has been created");
+        $.mobile.changePage("#country_pool_list");
+      },
+      error: function(data){
+        var pool_errors = $.parseJSON(data.responseText);
+        var error_string = ""; 
+        $.each(pool_errors.errors, function(i,item){
+          error_string += humanize(i) + ": " + item + "\n";
+        });
+        alert(error_string);
+      },
+      dataType: "json"
+    });
+  });
   $("#sign_in_button").live('click',function(){
     $.ajax({
       type: "POST",
@@ -70,8 +100,14 @@ $(document).bind("mobileinit", function(){
       if (data.telephone != ""){
         $("#pool_details").append("<strong>Telephone</strong><br/>"+data.telephone+"<br/>");
       }
+      if (data.drivenBefore != ""){
+        $("#pool_details").append("<strong>Driven here before</strong><br/>"+data.drivenBefore+"<br/>");
+      }
+      if (data.returning != ""){
+        $("#pool_details").append("<strong>Leaving from</strong><br/>"+data.returning+"<br/>");
+      }
       if (data.message != ""){
-        $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
+        $("#pool_details").append("<strong>Message</strong><br/><pre>"+data.message+"</pre><br/>");
       }
       if (user_is_valid()){
         $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");
@@ -162,4 +198,9 @@ function empty_and_refresh_carpools(){
     return to_return;
   }
 
-
+function humanize(property){
+  return property.replace(/_/g, ' ')
+    .replace(/(\w+)/g, function(match) {
+    return match.charAt(0).toUpperCase() + match.slice(1);
+  });
+}

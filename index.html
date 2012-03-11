@@ -150,7 +150,6 @@
           <option value="2">2</option>
           <option value="3">3</option>
           <option value="4">4</option>
-          <option value="lots">lots</option>
         </select>
       </div>
       <div data-role="fieldcontain">
@@ -163,7 +162,7 @@
       </div>
       <div data-role="fieldcontain">
         <label for="carpool_driven_before">Driven here before:</label>
-        <input type="checkbox" id="carpool_driven_before" value="yes"/>
+        <input type="checkbox" id="carpool_driven_before" value="1"/>
       </div>
       <div data-role="fieldcontain">
         <label for="carpool_message">Message:</label>
@@ -181,11 +180,14 @@
       $( '#add_carpool' ).live( 'pageinit',function(event){
         //input the field selector
         var fields = users_fields();
+        var output = [];
+        output.push('<option selected value="">Select Field...</option>');
         if (fields){
           $.each(fields,function(){
-            var option = new Option(this.field.name, this.field.id);
-            $("#carpool_field")[0].add(option,null);
+            output.push('<option value="'+ this.field.id +'">'+ this.field.name +'</option>');
           });
+          $('#carpool_field').html(output.join(''));
+          $("#carpool_field").selectmenu('refresh', true);
         }else{
           alert("BAD");
         }
@@ -193,18 +195,28 @@
         //setup the leaving date selects
         var d = new Date();
         d.setDate(d.getDate()-1);
+        var output = [];
+        $('#mySelect').html(output.join(''));
+
         for (var i=0;i<10;i++){
           d.setDate(d.getDate()+1);
           var to_add = print_date(d);
-          var option = new Option(to_add,to_add );
-          $("#carpool_date_leaving")[0].add(option,null);
-          var option = new Option(to_add,to_add );
-          $("#carpool_date_returning")[0].add(option,null);
+          if (i == 1){
+            output.push('<option selected value="'+ to_add +'">'+ to_add +'</option>');
+          }else{
+            output.push('<option value="'+ to_add +'">'+ to_add +'</option>');
+          }
         }
+        $('#carpool_date_leaving').html(output.join(''));
+        $('#carpool_date_returning').html(output.join(''));
+        $("#carpool_date_leaving").selectmenu('refresh', true);
+        $("#carpool_date_returning").selectmenu('refresh', true);
         $("#carpool_telephone").val(users_telephone());
         $("#carpool_leaving_from").val(users_city());
 
         $("#carpool_details").trigger('create');
+      });
+      $( '#add_carpool' ).live( 'pageshow',function(event){
       });
       
   </script>

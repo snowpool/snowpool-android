@@ -1,6 +1,11 @@
-PhoneGap-Start
----
+Snowpool Mobile App
+===================
 
-A starting point for PhoneGap apps.
+This is a basic mobile application for the website [Snowpool][]
 
-To get started: fork this repo, modify the config.xml to match your details, and get building!
+It is designed to be used on [build.phonegap.com][].
+
+Contributions welcome!
+
+  [Snowpool]: http://snowpool.org
+  [build.phonegap.com]: http://build.phonegap.com

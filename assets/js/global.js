@@ -145,11 +145,11 @@ function empty_and_refresh_carpools(){
       return;
     }
     var initDate = data[0].start;
-    $('<li data-role="list-divider">Leaving: '+initDate+'</li>').appendTo("#append-pools");
+    $('<li data-role="list-divider">'+initDate+'</li>').appendTo("#append-pools");
     $.each(data, function(i,item){
       if (initDate != item.start){
         initDate = item.start;
-        $('<li data-role="list-divider">Leaving: '+initDate+'</li>').appendTo("#append-pools");
+        $('<li data-role="list-divider">'+initDate+'</li>').appendTo("#append-pools");
       } 
       $('<li><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
     });

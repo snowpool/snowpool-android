@@ -112,7 +112,7 @@ $(document).bind("mobileinit", function(){
         $("#pool_details").append("<strong>Leaving from</strong><br/>"+data.returning+"<br/>");
       }
       if (data.message != ""){
-        $("#pool_details").append("<strong>Message</strong><br/><pre>"+data.message+"</pre><br/>");
+        $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
       }
       if (user_is_valid()){
         $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");

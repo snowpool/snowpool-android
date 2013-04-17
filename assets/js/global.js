@@ -1,5 +1,4 @@
 $(document).bind("mobileinit", function(){
-  alert("hello world");
   $.mobile.defaultPageTransition = 'none';
   $.mobile.defaultDialogTransition = 'none';
   $(document).on("click", ".refresh_button", function(){

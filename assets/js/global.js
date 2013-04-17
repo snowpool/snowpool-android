@@ -1,15 +1,15 @@
 $(document).bind("mobileinit", function(){
+  alert("hello world");
   $.mobile.defaultPageTransition = 'none';
   $.mobile.defaultDialogTransition = 'none';
-  
-  $(".refresh_button").live('click',function(){
+  $(document).on("click", ".refresh_button", function(){
     empty_and_refresh_carpools();
     return false;
   });
-  $(".change_country_button").live('click',function(){
+  $(document).on("click", ".change_country_button", function(){
     clear_data();
   });
-  $("#send_message_button").live('click',function(){
+  $(document).on("click", "#send_message_button", function(){
     $.ajax({
       type: "POST",
       url: 'http://api.lvh.me:3000/pools/'+$("#pool_id").val()+'/sendmessage.js',
@@ -38,7 +38,7 @@ $(document).bind("mobileinit", function(){
       dataType: "json"
     });
   });
-  $("#submit_carpool_button").live('click',function(){
+  $(document).on("click", "#submit_carpool_button", function(){
     window.localStorage.setItem("city" ,$("#carpool_leaving_from").val());
     window.localStorage.setItem("telephone" ,$("#carpool_telephone").val());
     $.ajax({
@@ -70,7 +70,7 @@ $(document).bind("mobileinit", function(){
       dataType: "json"
     });
   });
-  $("#sign_in_button").live('click',function(){
+  $(document).on("click", "#sign_in_button", function(){
     $.ajax({
       type: "POST",
       url: 'http://api.lvh.me:3000/tokens.js',
@@ -95,7 +95,7 @@ $(document).bind("mobileinit", function(){
       dataType: "json"
     });
   });
-  $("a.pool_link").live('click',function(e){
+  $(document).on("click", "a.pool_link", function(e){
     $("#pool_details").empty();
     $.getJSON("http://api.lvh.me:3000/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
       $("#pool_details").append("<h2>Carpool to "+data.field+"</h2>");
@@ -126,7 +126,7 @@ $(document).bind("mobileinit", function(){
     });
   });
 
-  $("a.country_click").live('click',function(){
+  $(document).on("click", "a.country_click", function(e){
     window.localStorage.setItem("chosenCountry" ,$(this).attr('id'));
     //get the fields for this country
     $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+"/fields.js", function(data) {

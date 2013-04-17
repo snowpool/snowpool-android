@@ -27,7 +27,7 @@
             //then move straight to that country's show
             $.mobile.changePage("#country_pool_list");
           }else{
-            $.getJSON("http://api.snowpool.staging/countries.js?callback=?", function(data) {
+            $.getJSON("http://api.wibble.bibble:3000/countries.js?callback=?", function(data) {
               if(data.length == 0){
                 return;
               }
@@ -51,7 +51,7 @@
       <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
     </div>
     <div data-role="content">
-      <p>This is the beta version of the Snowpool Mobile App.  Please <a href="mailto:info@snowpool.staging">Email us</a> if you have any comments or suggestions.</p>
+      <p>This is the beta version of the Snowpool Mobile App.  Please <a href="mailto:info@wibble.bibble:3000">Email us</a> if you have any comments or suggestions.</p>
     </div>
     <div data-role="footer">
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
@@ -136,7 +136,7 @@
      <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
   </div>
     <div data-role="content">
-      <h5>You must create your account at www.snowpool.staging before you can login with the mobile application</h5> 
+      <h5>You must create your account at www.wibble.bibble:3000 before you can login with the mobile application</h5> 
       <div data-role="fieldcontain">
           <label for="email">Email Address:</label>
           <input type="email" name="email" id="sign_in_email" value=""  />

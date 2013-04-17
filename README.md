@@ -7,5 +7,5 @@ It is designed to be used on [build.phonegap.com][].
 
 Contributions welcome!
 
-  [Snowpool]: http://snowpool.staging
+  [Snowpool]: http://wibble.bibble:3000
   [build.phonegap.com]: http://build.phonegap.com

@@ -8,11 +8,11 @@
 	<name>Snowpool</name>
 
 	<description>
-    A mobile application for snowpool.staging
+    A mobile application for wibble.bibble:3000
 	</description>
 
-	<author href="http://snowpool.staging"
-		email="info@snowpool.staging">
+	<author href="http://wibble.bibble:3000"
+		email="info@wibble.bibble:3000">
 	  Snowpool	
 	</author>
 

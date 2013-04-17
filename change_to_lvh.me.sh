@@ -1,1 +1,1 @@
-grep -lr -e 'snowpool.staging' * | xargs sed -i 's/snowpool.staging/snowpool.staging/g'
+grep -lr -e 'wibble.bibble:3000' * | xargs sed -i 's/wibble.bibble:3000/wibble.bibble:3000/g'

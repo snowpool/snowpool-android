@@ -97,20 +97,29 @@ $(document).bind("mobileinit", function(){
   $(document).on("click", "a.pool_link", function(e){
     $("#pool_details").empty();
     $.getJSON("http://api.lvh.me:3000/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
-      $("#pool_details").append("<h2>Carpool to "+data.field+"</h2>");
+      if (data.seeking === true){
+        $("#pool_details").append("<h2>Carpool wanted to "+data.field+"</h2>");
+      }else{
+        $("#pool_details").append("<h2>Carpool to "+data.field+"</h2>");
+      }
       $("#pool_details").append("<strong>Date Leaving</strong><br/>"+data.start+"<br/>");
       $("#pool_details").append("<strong>Date Returning</strong><br/>"+data.endDisp+"<br/>");
       $("#pool_details").append("<strong>Name</strong><br/>"+data.name+"<br/>");
-      if (data.telephone != ""){
+      if (data.seeking === true){
+        $("#pool_details").append("<strong>Spaces needed</strong><br/>"+data.spaces_free+"<br/>");
+      }else{
+        $("#pool_details").append("<strong>Spaces</strong><br/>"+data.spaces_free+"<br/>");
+      }
+      if (data.telephone !== ""){
         $("#pool_details").append("<strong>Telephone</strong><br/>"+data.telephone+"<br/>");
       }
-      if (data.drivenBefore != ""){
+      if (data.drivenBefore !== ""){
         $("#pool_details").append("<strong>Driven here before</strong><br/>"+data.drivenBefore+"<br/>");
       }
-      if (data.returning != ""){
+      if (data.returning !== ""){
         $("#pool_details").append("<strong>Leaving from</strong><br/>"+data.returning+"<br/>");
       }
-      if (data.message != ""){
+      if (data.message !== ""){
         $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
       }
       if (user_is_valid()){
@@ -138,7 +147,7 @@ $(document).bind("mobileinit", function(){
 function empty_and_refresh_carpools(){
   $("#append-pools").empty();
   $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
-    if(data.length == 0){
+    if(data.length === 0){
       $('<li data-role="list-divider">No current carpools</li>').appendTo("#append-pools");
       $("#append-pools").listview('refresh');
       return;
@@ -149,8 +158,12 @@ function empty_and_refresh_carpools(){
       if (initDate != item.start){
         initDate = item.start;
         $('<li data-role="list-divider">'+initDate+'</li>').appendTo("#append-pools");
-      } 
-      $('<li><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
+      }
+      var theme = "c";
+      if (item.seeking === true){
+        theme = "e";
+      }
+      $('<li data-theme="'+theme+'"><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
     });
     $("#append-pools").listview('refresh');
     return false;

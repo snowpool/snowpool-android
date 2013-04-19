@@ -52,11 +52,18 @@
       <a href="#sign_in" class="login_button ui-btn-right">Sign in</a>
     </div>
     <div data-role="content">
-      <p>This is the beta version of the Snowpool Mobile App.  Please <a href="mailto:info@wibble.bibble:3000">Email us</a> if you have any comments or suggestions.</p>
+      <div id="aboutContent"></div>
     </div>
     <div data-role="footer">
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
     </div>
+      <script>
+        $( "#about" ).on( "pageshow", function( event, ui ) {
+          $.getJSON("http://api.lvh.me:3000/about.js?callback=?", function(data) {
+            $("#aboutContent").empty().append(data.about);
+          });
+        });
+    </script>
   </div> <!--end of main page -->
 
 

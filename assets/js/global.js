@@ -195,6 +195,8 @@ function setFilterToShow(){
   }else{
     setFilterTheme(currentFilter);
   }
+  //hack - clear the input first
+  $(".ui-input-search > input").val("clear").keyup();
   window[currentFilter]();
 }
 

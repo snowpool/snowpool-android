@@ -77,6 +77,7 @@ $(document).bind("mobileinit", function(){
        "pool[returning_date]" : $("#carpool_date_returning").val(),
        "pool[spaces_free]" : $("#carpool_spaces").val(),
        "pool[telephone]" : $("#carpool_telephone").val(),
+       "pool[seeking]" : $("#carpool_wanted").prop("checked"),
        "pool[message]" : $("#carpool_message").val(),
        "pool[driven_here_before]" : $("#carpool_driven_before").prop("checked")
       }, 

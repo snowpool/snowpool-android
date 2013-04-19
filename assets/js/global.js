@@ -192,6 +192,7 @@ function setFilterToShow(){
   if (currentFilter === null){
     //then it has never been set, set to all
     window.localStorage.setItem("currentFilter" ,"allFilter");
+    currentFilter = "allFilter";
     setFilterTheme("allFilter");
   }else{
     setFilterTheme(currentFilter);

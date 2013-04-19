@@ -2,8 +2,8 @@
 <widget xmlns		= "http://www.w3.org/ns/widgets"
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		= "com.snowpool.mobileapp"
-  versionCode="140"
-	version 	= "1.2.0">
+  versionCode="150"
+	version 	= "2.0.0">
 
 	<name>Snowpool</name>
 
@@ -13,7 +13,7 @@
 
 	<author href="http://snowpool.org"
 		email="info@snowpool.org">
-	  Snowpool	
+	  Snowpool
 	</author>
 
 	<gap:platforms>

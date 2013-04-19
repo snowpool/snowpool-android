@@ -58,8 +58,8 @@
       <a href="#country_pool_list" class="home_button" class="ui-btn-left">Home</a>
     </div>
   </div> <!--end of main page -->
-  
-  
+
+
   <!-- settings page -->
   <div data-role="page" id="settings"> 
     <div data-role="header">
@@ -85,7 +85,7 @@
       });
     </script>
   </div> <!--end of settings page -->
-  
+
   <!-- pools page -->
   <div data-role="page" id="country_pool_list"> 
     <div data-role="header">
@@ -96,9 +96,9 @@
     </div>
     <div data-role="content">
        <div data-role="controlgroup" data-type="horizontal" data-inline="true">
-          <button id="allFilter">All</button>
-          <button id="offeredFilter">Offered</button>
-          <button id="wantedFilter">Wanted</button>
+          <button data-theme="e" class="filterbutton" id="allFilter">All</button>
+          <button class="filterbutton" id="offeredFilter">Offered</button>
+          <button class="filterbutton" id="wantedFilter">Wanted</button>
         </div>
       <ul id="append-pools" data-filter="true" data-filter-placeholder="Search pools" data-role="listview">
       </ul>

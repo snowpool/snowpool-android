@@ -9,29 +9,30 @@ $(document).bind("mobileinit", function(){
     clear_data();
   });
 
+
+  /* start of filter code */
+
+
   $(document).on("click", "#offeredFilter", function(){
-    filterOffered();
+    offeredFilter();
+    window.localStorage.setItem("currentFilter" ,"offeredFilter");
+    setFilterTheme("offeredFilter");
   });
 
   $(document).on("click", "#allFilter", function(){
-    noFilter();
+    allFilter();
+    window.localStorage.setItem("currentFilter" ,"allFilter");
+    setFilterTheme("allFilter");
   });
 
   $(document).on("click", "#wantedFilter", function(){
-    filterWanted();
+    wantedFilter();
+    window.localStorage.setItem("currentFilter" ,"wantedFilter");
+    setFilterTheme("wantedFilter");
   });
 
-  function filterOffered(){
-    $(".ui-input-search > input").val("offered").keyup();
-  }
+  /* end of filter code */
 
-  function noFilter(){
-    $(".ui-input-search > input").val("").keyup();
-  }
-
-  function filterWanted(){
-    $(".ui-input-search > input").val("wanted").keyup();
-  }
 
   $(document).on("click", "#send_message_button", function(){
     $.ajax({
@@ -169,6 +170,34 @@ $(document).bind("mobileinit", function(){
   });
 });
 
+function setFilterTheme(idToSet){
+  $(".filterbutton").buttonMarkup({ theme: "c" });
+  $('#'+idToSet).buttonMarkup({ theme: "e" });
+}
+function offeredFilter(){
+  $(".ui-input-search > input").val("offered").keyup();
+}
+
+function allFilter(){
+  $(".ui-input-search > input").val("").keyup();
+}
+
+function wantedFilter(){
+  $(".ui-input-search > input").val("wanted").keyup();
+}
+
+function setFilterToShow(){
+  var currentFilter = window.localStorage.getItem("currentFilter");
+  if (currentFilter === null){
+    //then it has never been set, set to all
+    window.localStorage.setItem("currentFilter" ,"allFilter");
+    setFilterTheme("allFilter");
+  }else{
+    setFilterTheme(currentFilter);
+  }
+  window[currentFilter]();
+}
+
 function empty_and_refresh_carpools(){
   $("#append-pools").empty();
   $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
@@ -193,6 +222,7 @@ function empty_and_refresh_carpools(){
       $('<li data-filtertext="'+ filter_text +'" data-theme="'+theme+'"><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
     });
     $("#append-pools").listview('refresh');
+    setFilterToShow();
     return false;
   });
  }

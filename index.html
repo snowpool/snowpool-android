@@ -28,7 +28,7 @@
             //then move straight to that country's show
             $.mobile.changePage("#country_pool_list");
           }else{
-            $.getJSON("http://api.lvh.me:3000/countries.js?callback=?", function(data) {
+            $.getJSON("http://api.snowpool.org/countries.js?callback=?", function(data) {
               if(data.length == 0){
                 return;
               }
@@ -59,7 +59,7 @@
     </div>
       <script>
         $( "#about" ).on( "pageshow", function( event, ui ) {
-          $.getJSON("http://api.lvh.me:3000/about.js?callback=?", function(data) {
+          $.getJSON("http://api.snowpool.org/about.js?callback=?", function(data) {
             $("#aboutContent").empty().append(data.about);
           });
         });

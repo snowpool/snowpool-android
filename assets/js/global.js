@@ -37,7 +37,7 @@ $(document).bind("mobileinit", function(){
   $(document).on("click", "#send_message_button", function(){
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/pools/'+$("#pool_id").val()+'/sendmessage.js',
+      url: 'http://api.snowpool.org/pools/'+$("#pool_id").val()+'/sendmessage.js',
       data: {
        "token" : users_token(),
        "message" : $("#pool_message").val()
@@ -68,7 +68,7 @@ $(document).bind("mobileinit", function(){
     window.localStorage.setItem("telephone" ,$("#carpool_telephone").val());
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/pools.js',
+      url: 'http://api.snowpool.org/pools.js',
       data: {
        "token" : users_token(),
        "pool[leaving_from]" : $("#carpool_leaving_from").val(),
@@ -99,7 +99,7 @@ $(document).bind("mobileinit", function(){
   $(document).on("click", "#sign_in_button", function(){
     $.ajax({
       type: "POST",
-      url: 'http://api.lvh.me:3000/tokens.js',
+      url: 'http://api.snowpool.org/tokens.js',
       data: {
        "email" : $("#sign_in_email").val(),
        "password" : $("#sign_in_password").val()
@@ -123,7 +123,7 @@ $(document).bind("mobileinit", function(){
   });
   $(document).on("click", "a.pool_link", function(e){
     $("#pool_details").empty();
-    $.getJSON("http://api.lvh.me:3000/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
+    $.getJSON("http://api.snowpool.org/pools/"+$(this).data('identity')+".js?callback=?", function(data) {
       if (data.seeking === true){
         $("#pool_details").append("<h2>Carpool wanted to "+data.field+"</h2>");
       }else{
@@ -164,7 +164,7 @@ $(document).bind("mobileinit", function(){
   $(document).on("click", "a.country_click", function(e){
     window.localStorage.setItem("chosenCountry" ,$(this).attr('id'));
     //get the fields for this country
-    $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+"/fields.js", function(data) {
+    $.getJSON("http://api.snowpool.org/countries/"+window.localStorage.getItem("chosenCountry")+"/fields.js", function(data) {
       window.localStorage.setItem("country_fields" ,JSON.stringify(data));
       window.localStorage.setItem("has_country_fields" ,"true");
     });
@@ -204,7 +204,7 @@ function setFilterToShow(){
 
 function empty_and_refresh_carpools(){
   $("#append-pools").empty();
-  $.getJSON("http://api.lvh.me:3000/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
+  $.getJSON("http://api.snowpool.org/countries/"+window.localStorage.getItem("chosenCountry")+".js?callback=?", function(data) {
     if(data.length === 0){
       $('<li data-role="list-divider">No current carpools</li>').appendTo("#append-pools");
       $("#append-pools").listview('refresh');

@@ -8,6 +8,31 @@ $(document).bind("mobileinit", function(){
   $(document).on("click", ".change_country_button", function(){
     clear_data();
   });
+
+  $(document).on("click", "#offeredFilter", function(){
+    filterOffered();
+  });
+
+  $(document).on("click", "#allFilter", function(){
+    noFilter();
+  });
+
+  $(document).on("click", "#wantedFilter", function(){
+    filterWanted();
+  });
+
+  function filterOffered(){
+    $(".ui-input-search > input").val("offered").keyup();
+  }
+
+  function noFilter(){
+    $(".ui-input-search > input").val("").keyup();
+  }
+
+  function filterWanted(){
+    $(".ui-input-search > input").val("wanted").keyup();
+  }
+
   $(document).on("click", "#send_message_button", function(){
     $.ajax({
       type: "POST",
@@ -160,10 +185,12 @@ function empty_and_refresh_carpools(){
         $('<li data-role="list-divider">'+initDate+'</li>').appendTo("#append-pools");
       }
       var theme = "c";
+      var filter_text = "offered";
       if (item.seeking === true){
         theme = "e";
+        filter_text = "wanted";
       }
-      $('<li data-theme="'+theme+'"><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
+      $('<li data-filtertext="'+ filter_text +'" data-theme="'+theme+'"><a class="pool_link" data-identity="'+item.id+'" href="#pool_view">'+item.title+'</li>').appendTo("#append-pools");
     });
     $("#append-pools").listview('refresh');
     return false;

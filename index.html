@@ -8,6 +8,7 @@
   <script src="./assets/js/jquery-1.9.1.min.js"></script>
   <script src="./assets/js/global.js"></script>
   <script src="./assets/js/jquery.mobile-1.3.1.min.js"></script>
+  <link rel="stylesheet" href="./assets/css/custom.snowpool.css" />
 </head>
 <body>
   <div id="home" data-role="page">
@@ -94,7 +95,12 @@
       <a href="#add_carpool" class="add_carpool_button ui-btn-right">Add Carpool</a>
     </div>
     <div data-role="content">
-      <ul id="append-pools" data-role="listview">
+       <div data-role="controlgroup" data-type="horizontal" data-inline="true">
+          <button id="allFilter">All</button>
+          <button id="offeredFilter">Offered</button>
+          <button id="wantedFilter">Wanted</button>
+        </div>
+      <ul id="append-pools" data-filter="true" data-filter-placeholder="Search pools" data-role="listview">
       </ul>
     </div>
     <div data-role="footer" class="ui-bar">

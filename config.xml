@@ -29,4 +29,7 @@
   <preference name="permissions" value="none"/>
 	<!-- sample preference specification -->
 	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
+
+  <!-- with no phonegap version set, build complains we are using Phonegap 1.7.0 -->
+  <preference name="phonegap-version" value="2.7.0" />
 </widget>

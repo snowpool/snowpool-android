@@ -24,7 +24,7 @@
     </div>
       <script>
         $( "#home" ).on( "pageshow", function( event, ui ) {
-          if (window.localStorage.getItem("chosenCountry")){
+          if (window.localStorage.getItem("chosenCountry") != ""){
             //then move straight to that country's show
             $.mobile.changePage("#country_pool_list");
           }else{

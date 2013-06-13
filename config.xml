@@ -48,7 +48,7 @@
 	<!-- <preference name="autorotate" value="false" readonly="true"/> -->
 
   <!-- with no phonegap version set, build complains we are using Phonegap 1.7.0 -->
-  <preference name="phonegap-version" value="2.7.0" />
+  <preference name="phonegap-version" value="2.8.0" />
   <!-- only want to target phones -->
   <preference name="target-device" value="handset" />
 </widget>

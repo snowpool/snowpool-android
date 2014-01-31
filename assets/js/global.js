@@ -33,6 +33,22 @@ $(document).bind("mobileinit", function(){
 
   /* end of filter code */
 
+  $(document).on("click", "#delete_carpool_button", function(){
+    if (confirm('Really Delete Your Carpool?')){
+      $.ajax({
+        type: "POST",
+        url: 'http://api.snowpool.org/pools/'+$("#pool_id").val() + '.js',
+        data: {
+         "_method" : 'delete',
+         "token" : users_token()
+        },
+        success: function(data) {
+          alert("Carpool has been deleted");
+          $.mobile.changePage("#country_pool_list");
+        }
+      });
+    }
+  });
 
   $(document).on("click", "#send_message_button", function(){
     $.ajax({
@@ -111,6 +127,7 @@ $(document).bind("mobileinit", function(){
         window.localStorage.setItem("token" ,data.token);
         window.localStorage.setItem("telephone" ,data.telephone);
         window.localStorage.setItem("city" ,data.city);
+        window.localStorage.setItem("user_id" ,data.user_id);
         window.localStorage.setItem("valid_login" ,"true");
         $.mobile.changePage("#country_pool_list");
       },
@@ -150,10 +167,14 @@ $(document).bind("mobileinit", function(){
         $("#pool_details").append("<strong>Message</strong><br/>"+data.message+"<br/>");
       }
       if (user_is_valid()){
-        $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");
-        $("#pool_details").append("<textarea name=\"messageText\" id=\"pool_message\"></textarea>");
         $("#pool_details").append("<input type=\"hidden\" id=\"pool_id\" value=\""+data.id+"\"></textarea>");
-        $("#pool_details").append('<button type="submit" data-theme="a" id="send_message_button">Send Message</button>');
+        if (is_own_carpool(data.user_id)){
+          $("#pool_details").append('<button type="submit" data-theme="a" id="delete_carpool_button">Delete Your Carpool</button>');
+        }else{
+          $("#pool_details").append("<br/><br/><strong>Send "+data.name+" a message</strong><br/>");
+          $("#pool_details").append("<textarea name=\"messageText\" id=\"pool_message\"></textarea>");
+          $("#pool_details").append('<button type="submit" data-theme="a" id="send_message_button">Send Message</button>');
+        }
       }else{
         $("#pool_details").append("<h4>If you <a href=\"#sign_in\">sign in</a>, then you can send the user a message.</h4>");
       }
@@ -234,7 +255,12 @@ function empty_and_refresh_carpools(){
  //setup all the local variables etc
  function setup(){
   if (user_is_valid()){
-    $(".login_button").hide();
+    if (user_id_unset()){
+      window.localStorage.setItem("valid_login" ,"false");
+      $(".add_carpool_button").hide();
+    }else{
+      $(".login_button").hide();
+    }
   }else{
     $(".add_carpool_button").hide();
   }
@@ -248,6 +274,9 @@ function empty_and_refresh_carpools(){
   function user_is_valid(){
     return window.localStorage.getItem("valid_login") == "true";
   }
+  function user_id_unset(){
+    return window.localStorage.getItem("user_id") === null;
+  }
   function users_token(){
     return window.localStorage.getItem("token");
   }
@@ -256,6 +285,9 @@ function empty_and_refresh_carpools(){
   }
   function users_city(){
     return window.localStorage.getItem("city");
+  }
+  function is_own_carpool(user_id){
+    return parseInt(window.localStorage.getItem("user_id"), 10) === user_id;
   }
   function users_fields(){
     if ( window.localStorage.getItem("has_country_fields") == "true" ){

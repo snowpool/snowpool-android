@@ -6,7 +6,7 @@
 	version 	= "2.1.0">
 
 	<name>Snowpool</name>
-  <preference name="phonegap-version" value="2.5.0" />
+  <preference name="phonegap-version" value="2.7.0" />
 	<description>
     A mobile application for snowpool.org
 	</description>
@@ -42,7 +42,6 @@
   <preference name="permissions" value="none"/>
 
   <!-- with no phonegap version set, build complains we are using Phonegap 1.7.0 -->
-  <preference name="phonegap-version" value="2.7.0" />
   <!-- only want to target phones -->
   <preference name="target-device" value="handset" />
 </widget>

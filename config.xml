@@ -6,7 +6,7 @@
 	version 	= "2.2.0">
 
 	<name>Snowpool</name>
-  <preference name="phonegap-version" value="2.7.0" />
+  <preference name="phonegap-version" value="2.5.0" />
 	<description>
     A mobile application for snowpool.org
 	</description>

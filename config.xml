@@ -3,13 +3,14 @@
 	xmlns:gap	= "http://phonegap.com/ns/1.0"
 	id		= "com.snowpool.mobileapp"
   versionCode="160"
-	version 	= "2.1.0">
+	version 	= "2.2.0">
 
 	<name>Snowpool</name>
-  <preference name="phonegap-version" value="2.5.0" />
+  <preference name="phonegap-version" value="2.7.0" />
 	<description>
     A mobile application for snowpool.org
 	</description>
+
 	<author href="http://snowpool.org"
 		email="info@snowpool.org">
 	  Snowpool
